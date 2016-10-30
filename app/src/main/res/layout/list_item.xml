@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="88dp">
+
+    <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginLeft="4dp"
+    android:layout_toRightOf="@id/itemimageImageView">
+    <TextView
+        tools:text = "Title"
+        android:id="@+id/itenName_textview"
+        style="@style/heading"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="bottom"/>
+    <TextView
+        style="@style/normalText"
+        tools:text="PartNo"
+        android:id="@+id/partNo_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>
+    <TextView
+        android:id="@+id/quantity_available"
+        android:text="@string/qty_available"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingRight="16dp"
+        android:paddingTop="4dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+
+        tools:text="Quantity"
+        android:id="@+id/quantity_textview"
+        android:layout_below="@id/quantity_available"
+        android:layout_alignParentRight="true"
+        android:paddingRight="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+    <TextView
+        android:paddingRight="16dp"
+        android:paddingBottom="4dp"
+        android:id="@+id/price_textview"
+        tools:text="price"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        tools:src = "@mipmap/ic_launcher"
+        android:id="@+id/itemimageImageView"
+
+        android:scaleType="fitXY"
+        android:layout_width="88dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>
