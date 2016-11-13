@@ -41,6 +41,9 @@ public class SalesRecordFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public interface CallbackSalesFragment{
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,25 +57,13 @@ public class SalesRecordFragment extends Fragment {
             ArrayList<Description> arrayList = PopulateListView();
         ListView listView = (ListView) rootView.findViewById(R.id.items_listview);
         DescAdapter adapter = new DescAdapter(getActivity(),arrayList);
+
         listView.setAdapter(adapter);
 
 
 
 
         return rootView;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        salesDbHelper = new SalesDbHelper(getActivity());
-        ArrayList<Description> arrayList = PopulateListView();
-        ListView listView = (ListView) rootView.findViewById(R.id.items_listview);
-        DescAdapter adapter = new DescAdapter(getActivity(),arrayList);
-        listView.setAdapter(adapter);
-
-
     }
 
     public ArrayList<Description> PopulateListView(){

@@ -17,7 +17,7 @@
     <string name="save">Save</string>
     <string name="sell">Sell</string>
     <string name="update">Update</string>
-    <string name="qty_available">Quantity Available</string>
+    <string name="qty_available">Available</string>
     <string name="price_view">Price</string>
 
     <string-array name="supplier_array">

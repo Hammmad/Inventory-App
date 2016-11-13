@@ -5,6 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="88dp">
 
+
+    <ImageView
+        tools:src = "@mipmap/ic_launcher"
+        android:id="@+id/itemimageImageView"
+        android:paddingLeft="16dp"
+        android:paddingTop="16dp"
+        android:scaleType="fitXY"
+        android:layout_width="88dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true" />
+
     <LinearLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
@@ -58,16 +69,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        tools:src = "@mipmap/ic_launcher"
-        android:id="@+id/itemimageImageView"
-
-        android:scaleType="fitXY"
-        android:layout_width="88dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

@@ -17,16 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <TextView
 
-
-        android:text="@string/nothing_to_show"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/empty_listview_message"
-        android:textColor="@color/colorPrimaryDark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>

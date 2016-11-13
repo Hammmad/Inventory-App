@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -66,6 +67,8 @@ public class MainFragment extends Fragment {
 
         public void displaySalesRecordFragment();
 
+        public PagerAdapter getAdapter();
+
         public void sendpartNo(String partNo);
     }
 
@@ -117,7 +120,7 @@ public class MainFragment extends Fragment {
                 if(imageInByte!=null) {
                     image = BitmapFactory.decodeByteArray(imageInByte, 0, imageInByte.length);
                 }else{
-                    image = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+                    image = BitmapFactory.decodeResource(getResources(),R.drawable.image_not_available);
 
                 }
                     callBackMainFragment.sendpartNo(selectedItemPartNo);
@@ -170,6 +173,8 @@ public class MainFragment extends Fragment {
                         AddRecordFromComponentsToSales();
                         UpdateQuantity();
                         PopulateListView();
+                        PagerAdapter adapter = callBackMainFragment.getAdapter();
+                        adapter.notifyDataSetChanged();
                         dialog.dismiss();
                     }
                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -187,11 +192,9 @@ public class MainFragment extends Fragment {
 
     private void PopulateListView() {
         list = (ListView) rootview.findViewById(R.id.items_listview);
-        TextView emptyMessage = (TextView) rootview.findViewById(R.id.empty_listview_message);
         ArrayList<Description> arraylist = getInformation();
 
 
-        emptyMessage.setVisibility(View.INVISIBLE);
         DescAdapter adapter = new DescAdapter(getActivity(), arraylist);
         list.setAdapter(adapter);
     }
@@ -296,7 +299,7 @@ public class MainFragment extends Fragment {
                 Bitmap imageBitmap = BitmapFactory.decodeByteArray(imageinbyte, 0, imageinbyte.length);
                 DescArraylist.add(new Description(imageBitmap, name, partNo, price, qty));
             }else{
-                Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher);
+                Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.image_not_available);
 
                 DescArraylist.add(new Description(bmp, name, partNo, price, qty));
 

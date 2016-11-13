@@ -1,6 +1,12 @@
 package Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,16 +53,19 @@ public class DescAdapter extends ArrayAdapter<Description> implements Filterable
             TextView price = (TextView) convertView.findViewById(R.id.price_textview);
             price.setText(String.format("$ %s", currentItemDesc.getMprice()));
 
-        ImageView image = (ImageView) convertView.findViewById(R.id.itemimage_imageview);
-            image.setImageBitmap(currentItemDesc.getMimage());
+        ImageView image = (ImageView) convertView.findViewById(R.id.itemimageImageView);
+
+            Bitmap resized = Bitmap.createScaledBitmap(currentItemDesc.getMimage(), 150, 150, true);
+            Bitmap circularImage = getRoundedRectBitmap(resized, 100);
+            image.setImageBitmap(circularImage);
         }else{
             TextView price = (TextView) convertView.findViewById(R.id.price_textview);
-            TextView priceView = (TextView) convertView.findViewById(R.id.priceView_textView);
+
             TextView qtyView = (TextView) convertView.findViewById(R.id.quantity_available);
-            qtyView.setText("Quantity Sold");
+            qtyView.setText("Sold");
             price.setText(currentItemDesc.getMprice());
 
-            ImageView image = (ImageView) convertView.findViewById(R.id.itemimage_imageview);
+            ImageView image = (ImageView) convertView.findViewById(R.id.itemimageImageView);
             image.setVisibility(View.GONE);
         }
 
@@ -64,4 +73,27 @@ public class DescAdapter extends ArrayAdapter<Description> implements Filterable
 
 
     }
+    public static Bitmap getRoundedRectBitmap(Bitmap bitmap, int pixels) {
+        Bitmap result = null;
+        try {
+            result = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(result);
+
+            int color = 0xff424242;
+            Paint paint = new Paint();
+            Rect rect = new Rect(0, 0, 200, 200);
+
+            paint.setAntiAlias(true);
+            canvas.drawARGB(0, 0, 0, 0);
+            paint.setColor(color);
+            canvas.drawCircle(80, 80, 80, paint);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+            canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        } catch (NullPointerException e) {
+        } catch (OutOfMemoryError o) {
+        }
+        return result;
+    }
+
 }

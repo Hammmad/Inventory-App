@@ -28,7 +28,7 @@
     <ImageView
         android:id="@+id/item_imageview"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/image_not_available"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:clickable="true"/>

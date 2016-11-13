@@ -2,6 +2,7 @@ package com.example.hammad.workshopinventory;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.database.Cursor;
+import android.widget.Toast;
 
 
 import java.io.ByteArrayOutputStream;
@@ -29,6 +31,7 @@ public class AddItems extends AppCompatActivity {
     private static final int REQUEST_CODE = 1;
     Bitmap bmp;
     byte[] image;
+    byte[] updateImageInByte;
     WorkshopDbHelper workshopDbHelper = new WorkshopDbHelper(this);
     Spinner supplierSpinner;
     boolean isUpdate;
@@ -75,6 +78,9 @@ public class AddItems extends AppCompatActivity {
         String pubNo = cursor.getString(cursor.getColumnIndex(EntryContract.Entry.PUBLICATION_NO_COLUMN));
         String supplier = cursor.getString(cursor.getColumnIndex(EntryContract.Entry.SUPPLIER_COLUMN));
 
+        updateImageInByte = cursor.getBlob(cursor.getColumnIndex(EntryContract.Entry.IMAGE_COLUMN));
+
+
         EditText nameEditText = (EditText) findViewById(R.id.item_name_editText);
         EditText partnoEditText = (EditText) findViewById(R.id.part_no_editText);
         EditText refNoEdittext = (EditText) findViewById(R.id.ref_no_editText);
@@ -82,7 +88,14 @@ public class AddItems extends AppCompatActivity {
         EditText qtyEditText = (EditText) findViewById(R.id.quantity_editText);
         EditText priceEditText = (EditText) findViewById(R.id.price_editText);
         Spinner supplierSpinner = (Spinner) findViewById(R.id.supplier_spinner);
+        ImageView itemImageView = (ImageView) findViewById(R.id.item_imageview);
+        Bitmap updateBmp;
+        if(updateImageInByte !=null) {
 
+            updateBmp = BitmapFactory.decodeByteArray(updateImageInByte, 0, updateImageInByte.length);
+        }else{
+            updateBmp =BitmapFactory.decodeResource(getResources(), R.drawable.image_not_available);
+        }
         nameEditText.setText(name);
         partnoEditText.setText(partNo);
         refNoEdittext.setText(redNo);
@@ -90,6 +103,8 @@ public class AddItems extends AppCompatActivity {
         qtyEditText.setText(String.valueOf(qty));
         priceEditText.setText(price);
         supplierSpinner.setSelection(stringArrayAdapter.getPosition(supplier));
+        itemImageView.setImageBitmap(updateBmp);
+
     }
 
 
@@ -125,13 +140,27 @@ public class AddItems extends AppCompatActivity {
                 String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
                 Log.e("DEBUDDING", date);
                 String supplierName =supplierSpinner.getSelectedItem().toString();
+                ImageView imageView = (ImageView) findViewById(R.id.item_imageview);
 
 
 
-                if(isUpdate)
-                    workshopDbHelper.updateEnrty(name,partno,refNo,pubNo,supplierName,qty,price,date,image);
-                if(!isUpdate)
-                    workshopDbHelper.InsertData(name,partno,refNo,pubNo,supplierName,qty,price,date,image);
+                if(isUpdate) {
+                    workshopDbHelper.updateEnrty(name, partno, refNo, pubNo, supplierName, qty, price, date, image);
+                    Toast.makeText(this, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
+                }
+                if(!isUpdate) {
+                    workshopDbHelper.InsertData(name, partno, refNo, pubNo, supplierName, qty, price, date, image);
+                    Toast.makeText(this, "Description Successfully", Toast.LENGTH_SHORT).show();
+                    nameEditText.setText(null);
+                    partnoEditText.setText(null);
+                    refNoEdittext.setText(null);
+                    pubNoEditText.setText(null);
+                    qtyEditText.setText(null);
+                    priceEditText.setText(null);
+                    supplierSpinner.setSelection(0);
+                    imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.image_not_available));
+                }
             }
         }
         
@@ -191,6 +220,7 @@ public class AddItems extends AppCompatActivity {
     }
     private void OnImageClickLisetener() {
         ImageView itemImage = (ImageView) findViewById(R.id.item_imageview);
+        image = updateImageInByte;
         itemImage.setOnClickListener(new View.OnClickListener() {
 
 

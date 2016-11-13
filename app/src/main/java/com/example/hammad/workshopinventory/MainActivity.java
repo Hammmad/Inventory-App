@@ -25,7 +25,6 @@ import Fragments.SalesRecordFragment;
 public class MainActivity extends AppCompatActivity implements MainFragment.CallBackMainFragment, DetailFragment.CallbackDetailFragment{
 
     private String mPartNo;
-    DescAdapter descAdapter;
     PagerAdapter adapter;
 
     @Override
@@ -76,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
         MenuItemCompat.setOnActionExpandListener(searchitem,actionExpandListener);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) searchitem.getActionView();
+
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         MenuItemCompat.setOnActionExpandListener(searchitem,actionExpandListener);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -151,6 +151,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
     }
 
     @Override
+    public PagerAdapter getAdapter() {
+        return adapter;
+    }
+
+    @Override
     public void sendpartNo(String partNo) {
         mPartNo= partNo;
     }
@@ -160,4 +165,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.Call
 
         return mPartNo;
     }
+
+
 }
